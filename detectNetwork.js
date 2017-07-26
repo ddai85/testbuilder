@@ -42,9 +42,25 @@ var detectNetwork = function(cardNumber) {
   var maestroPrefix = cardArray[0] + cardArray[1] + cardArray[2] + cardArray[3];
   var maestroArray = ['5018', '5020', '5038', '6304'];
   var maestroLength = [12, 13, 14, 15, 16, 17, 18, 19]
-  if (maestroArray.includes(maestroPrefix) || maestroLength.includes(cardNumber.length)){
+  if (maestroArray.includes(maestroPrefix) && maestroLength.includes(cardNumber.length)){
     return 'Maestro';
   }
+
+  var chinaPrefix6 = cardArray[0] + cardArray[1] + cardArray[2] + cardArray[3] + cardArray[4] + cardArray[5];
+  var chinaPrefix3 = cardArray[0] + cardArray[1] + cardArray[2];
+  var chinaPrefix4 = cardArray[0] + cardArray[1] + cardArray[2] + cardArray[3];
+  var chinaArray6 = [];
+  for (var i = 622126; i <= 622925; i++){
+  	chinaArray6.push(i.toString());
+  }
+  var chinaArray3 = ['624', '625', '626']
+  var chinaArray4 = ['6282', '6283', '6284', '6285', '6286', '6287', '6288']
+  var chinaLength = [16, 18, 19];
+  if ((chinaArray6.includes(chinaPrefix6) || chinaArray3.includes(chinaPrefix3) || chinaArray4.includes(chinaPrefix4)) && (chinaLength.includes(cardArray.length))){
+    return 'China UnionPay';
+  }
+
+  
+  
 };
 
-console.log(detectNetwork('5112345678901234'))
